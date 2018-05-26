@@ -1,6 +1,6 @@
-# MugLo ![Status active](https://img.shields.io/badge/Status-active%20development-2eb3c1.svg) ![Django 2.0.5](https://img.shields.io/badge/Django-2.0.5-green.svg) ![Python 3.6](https://img.shields.io/badge/Python-3.6-blue.svg)
-[![Build Status](https://travis-ci.org/devlup-labs/mug_lo.svg?branch=master)](https://travis-ci.org/devlup-labs/mug_lo)
-## A platform for sharing notes within a group of users
+# TA Portal ![Status active](https://img.shields.io/badge/Status-active%20development-2eb3c1.svg) ![Django 2.0.5](https://img.shields.io/badge/Django-2.0.5-green.svg) ![Python 3.6](https://img.shields.io/badge/Python-3.6-blue.svg)
+[![Build Status](https://travis-ci.org/devlup-labs/ta_portal.svg?branch=master)](https://travis-ci.org/devlup-labs/ta_portal)
+## A platform for automating the task of generating reports of work done by Teaching Assistants
 ### Purpose
 [GOES HERE]
 
@@ -14,13 +14,13 @@ Procedure:
 - Install [python](https://www.python.org/downloads/) in your environment(pre-installed on Ubuntu).
 - Navigate to the cloned repository.
     ```
-    cd <project_directory_name>     # mug_lo
+    cd <project_directory_name>     # ta_portal
     ```
 - Create a new virtual environment and activate it.
     ```
     sudo apt-get install -y python3-venv
-    python3 -m venv muglo_venv
-    source muglo_venv/bin/activate
+    python3 -m venv ta_portal_venv
+    source ta_portal_venv/bin/activate
     ```
 - Use pip to install other dependencies from `requirements.txt`
     ```
@@ -32,14 +32,14 @@ Procedure:
     ```
 - Make database migrations
     ```
-    python manage.py makemigrations --settings=mug_lo.settings
-    python manage.py migrate --settings=mug_lo.settings
+    python manage.py makemigrations --settings=ta_portal.settings
+    python manage.py migrate --settings=ta_portal.settings
     ```
 - Create a superuser
     ```
-    python manage.py createsuperuser --settings=mug_lo.settings
+    python manage.py createsuperuser --settings=ta_portal.settings
     ```
 - Run development server on localhost
     ```
-    python manage.py runserver --settings=mug_lo.settings
+    python manage.py runserver --settings=ta_portal.settings
     ```
