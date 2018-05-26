@@ -6,6 +6,7 @@ before_install:
   - export DJANGO_SECRET_KEY='dcyz)+52d)n1f3d6dsf&g0p6a($(v4&rvu=9u3u6fib9=kzy$8'
   - psql -c "CREATE DATABASE tadb;" -U postgres
   - psql -c "CREATE USER tauser WITH LOGIN PASSWORD 'password';" -U postgres
+  - psql -c "ALTER ROLE tauser WITH CREATEDB;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE tadb TO tauser;" -U postgres
 install:
   - pip3 install -r requirements.txt
