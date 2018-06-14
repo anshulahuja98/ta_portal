@@ -9,15 +9,59 @@
     <h3>
         &nbsp Hi {{ profile.user.first_name }}! [{{ profile.user.username }}]
     </h3>
-    {{ profile.get_program_display }}
+{#    {{ profile.get_program_display }}#}
+{##}
+{#    <br><br>#}
+{#    <h2>Courses Registered for</h2>#}
+{#    <ul>#}
+{#        {% for course in profile.course_set.all %}#}
+{#            <li>   {{ course.course_name }} {{ course.get_absolute_url }}</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
 
-    <br><br>
-    <h2>Courses Registered for</h2>
-    <ul>
-        {% for course in profile.course_set.all %}
-            <li>  {{ course.course_code }} {{ course.course_name }} {{ course.get_absolute_url }}</li>
-        {% endfor %}
-    </ul>
+
+
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card"
+                 style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem;">
+                <center><h3 class="center" style="color: #4285F4; font-weight: 400">Registered Courses</h3>
+                </center>
+            </div>
+
+            <div class="card-block" style="margin: 3rem;margin-top: 1rem">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="font-size: 1.6rem">Course Code</th>
+                        <th scope="col" style="font-size: 1.6rem">Course Name</th>
+                        <th scope="col" style="font-size: 1.6rem">Course Page</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for course in profile.course_set.all %}
+                            <th scope="row" style="font-size: 1.3rem">{{ course.course_code }}</th>
+                            <td style="font-size: 1.3rem">{{ course.course_name }}</td>
+                            <td>
+                                <a href="{{ course.get_absolute_url }}">
+                                    <button class="btn btn-info btn-sm">
+                                     <i class="fa fa-external-link" style="font-size: 1.3rem;"></i>
+                                    </button>
+                                </a>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class=" col-md-2">
+        </div>
+    </div>
+
 
 
 
