@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ta_portal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -121,10 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "../static"),
+    os.path.join(BASE_DIR, "../staticfiles"),
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, "../../staticfiles")
 
 STATIC_URL = '/static/'
 
@@ -151,3 +149,4 @@ EMAIL_PORT = '465'
 EMAIL_HOST_USER = config('SERVER_EMAIL', default='noreply@localhost.com', cast=str)
 EMAIL_HOST_PASSWORD = config('SERVER_EMAIL_PASSWORD', default='password', cast=str)
 EMAIL_USE_SSL = True
+LOGIN_REDIRECT_URL = '/dashboard/'

@@ -36,7 +36,7 @@ class FeedbackTeachingAssistant(models.Model):
         ('12', 'December')
     )
     approve = models.BooleanField(default=False)
-    comments = models.TextField(null=True,blank=True)
+    comments = models.TextField(null=True, blank=True)
     month = models.CharField(max_length=2, choices=MONTHES)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     ta = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)

@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" class="full-height">
+<head>
+    {% block styles %}   {% endblock %}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+
+<body style="background: #81d4fa;">
+
+<div class="main-heading">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="media" style="margin-left: 1rem; margin-bottom: 1px; margin-top: 1rem;">
+                <a href="http://iitj.ac.in/" class="thumbnail pull-left">
+                    <img src="{% static 'img/iitj_logo1.png' %}" alt="IIT Jodhpur" class="logo"
+                         style="height:6rem; width:auto;">
+                </a>
+                <div class="media-body" style="margin-left:10px; margin-top: 10px;">
+                    <p class="heading" style="font-size:27px;font-weight: 500;color:black;">&nbsp;
+                        Teaching Assistant Portal
+                        <br>
+                      &nbsp;  Indian Institute of Technology Jodhpur
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr style="color: white;">
+{% block body %}
+{% endblock %}
+{% block scripts %}
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+</html>

@@ -1,0 +1,22 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'frontend:logout' %}">
+            <button class="btn btn-danger pull-right">LOGOUT &nbsp; <i class="fa fa-sign-out"></i></button>
+        </a>
+        <h3>
+            &nbsp Hi {{ user.first_name }}! [{{ user.username }}]
+        </h3>
+
+        {{ user.program }}
+
+    {% else %}
+        <h3>You are not logged in
+            <br><br>
+            <u><a href="{% url 'frontend:login' %}" style="color: white;">Click here to Login</a></u></h3>
+    {% endif %}
+
+{% endblock %}a

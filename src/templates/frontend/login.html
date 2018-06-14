@@ -1,0 +1,38 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <!--Form with header-->
+    <br><br><br>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card"
+                     style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem;">
+                    <center><h3 class="center" style="color: #4285F4; font-weight: 400"> Teaching Assistant Login</h3>
+                    </center>
+                </div>
+                <div class="card-block" style="margin: 3rem;margin-top: 1rem">
+                    <form method="post">
+                        <!--Header-->
+                        {% csrf_token %}
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix" style="color: #4285F4  "></i>
+                            <input type="text" name="username" id="username" class="form-control">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix" style="font-size: 2.5rem; color: #4285F4   "></i>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+{% endblock %}
