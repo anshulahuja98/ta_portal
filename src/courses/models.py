@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from adminportal.models import FacultyProfile
-from django.urls import reverse_lazy,reverse
+from django.urls import reverse
 
 
 class Course(models.Model):
@@ -12,7 +12,10 @@ class Course(models.Model):
     course_code = models.CharField(max_length=5, validators=[code])
     course_name = models.CharField(max_length=100)
     teaching_assistants = models.ManyToManyField("accounts.TeachingAssistantProfile")
-    slug = models.SlugField(default=course_code)
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.course_code
 
     @property
     def get_absolute_url(self):

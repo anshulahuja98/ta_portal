@@ -4,7 +4,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from courses.models import Course
-from django.urls import reverse, reverse_lazy
 
 
 class UserObjectMixin(object):
