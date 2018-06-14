@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from courses.models import Course
 
 
 class TeachingAssistantProfile(models.Model):
@@ -17,3 +18,25 @@ class TeachingAssistantProfile(models.Model):
     rollno = models.CharField(max_length=8, validators=[roll])
     program = models.CharField(max_length=1, choices=PROGRAMS)
     phone = models.CharField(max_length=10, validators=[contact])
+
+
+class FeedbackTeachingAssistant(models.Model):
+    MONTHES = (
+        ('1', 'January'),
+        ('2', 'February'),
+        ('3', 'March'),
+        ('4', 'April'),
+        ('5', 'May'),
+        ('6', 'June'),
+        ('7', 'July'),
+        ('8', 'August'),
+        ('9', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December')
+    )
+    approve = models.BooleanField(default=False)
+    comments = models.TextField(null=True,blank=True)
+    month = models.CharField(max_length=2, choices=MONTHES)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    ta = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
