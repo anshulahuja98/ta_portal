@@ -1,17 +1,16 @@
-{% extends 'frontend/base.html' %}
+{% extends 'frontend/dash_base.html' %}
 {% load staticfiles %}
 {% block title %} Course | {{ course.slug }}  {% endblock %}
 {% block body %}
-
+    <br><br>
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
             <div class="card"
                  style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem;">
                 <center><h3 class="center" style="color: #4285F4; font-weight: 400"> Course Details</h3>
                 </center>
             </div>
-
             <div class="card-block" style="margin: 3rem;margin-top: 1rem">
                 <table class="table table-striped">
                     <tbody>
@@ -21,7 +20,7 @@
                     </tr>
                     <tr>
                         <th scope="row" style="font-size: 1.3rem;">Course Code</th>
-                        <td style="font-size: 1rem">{{ course.course_code }}</td>
+                        <td style="font-size: 1rem">{{ course }}</td>
                     </tr>
                     <tr>
                         <th scope="row" style="font-size: 1.3rem;">Instructor</th>
@@ -31,13 +30,8 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-4"></div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
             <div class="card"
                  style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem;">
                 <center><h3 class="center" style="color: #4285F4; font-weight: 400">Feedback and Approval</h3>
@@ -54,7 +48,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for feedback in course.feedbackteachingassistant_set.all %}
+                    {% for feedback in feedbacks %}
                         <tr>
                             <th scope="row" style="font-size: 1.2rem">{{ feedback.get_month_display }}</th>
                             <td style="font-size: 1.2rem">{{ feedback.comments }}</td>
@@ -72,8 +66,12 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-1"></div>
+
     </div>
+
+
+
 
 
 

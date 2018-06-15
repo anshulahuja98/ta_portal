@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from courses.models import Course
+from django.db.models.signals import pre_save
+from adminportal.models import TeachingAssistantSupervisorProfile
 
 
 class TeachingAssistantProfile(models.Model):
@@ -15,12 +17,24 @@ class TeachingAssistantProfile(models.Model):
     contact = RegexValidator(r'^[6-9][0-9]{9}')
     # Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rollno = models.CharField(max_length=8, validators=[roll])
+    rollno = models.CharField(max_length=8, validators=[roll], blank=True)
     program = models.CharField(max_length=1, choices=PROGRAMS)
     phone = models.CharField(max_length=10, validators=[contact])
+    slug = models.SlugField(blank=True)
+    ta_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, null=True, blank=True,
+                                      on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.rollno + '(' + self.user.get_full_name() + ')'
+
+
+def event_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug or not instance.rollno:
+        instance.slug = instance.user.username
+        instance.rollno = instance.user.username
+
+
+pre_save.connect(event_pre_save_receiver, sender=TeachingAssistantProfile)
 
 
 class FeedbackTeachingAssistant(models.Model):
