@@ -27,6 +27,11 @@
                             <input type="password" name="password" id="password" class="form-control">
                             <label for="password">Password</label>
                         </div>
+                        {% for error in form.non_field_errors %}
+                            <div class="red-text">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
                         <div class="text-center">
                             <button class="btn btn-primary" type="submit">Login</button>
                         </div>

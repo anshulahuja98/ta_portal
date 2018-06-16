@@ -18,9 +18,6 @@ class Course(models.Model):
     def __str__(self):
         return self.course_code
 
-    def get_course(course_code):
-        return Course.objects.filter(course_code=course_code)[0]
-
     @property
     def get_absolute_url(self):
         return reverse('frontend:course-detail', kwargs={'slug': self.slug})

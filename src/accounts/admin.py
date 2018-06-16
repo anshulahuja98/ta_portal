@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import TeachingAssistantProfile, FeedbackTeachingAssistant
-from adminportal.models import TeachingAssistantSupervisorProfile
 
 
 class FeedbackTeachingAssistantInline(admin.StackedInline):
@@ -20,7 +19,7 @@ class TeachingAssistantAdmin(admin.ModelAdmin):
 @admin.register(FeedbackTeachingAssistant)
 class FeedbackTeachingAssistantAdmin(admin.ModelAdmin):
     list_display = ['get_rollno', 'course', 'ta_sup', 'approve']
-    list_filter = ['ta_sup',]
+    list_filter = ['ta_sup', ]
 
     class Meta:
         model = FeedbackTeachingAssistant

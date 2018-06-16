@@ -8,7 +8,7 @@ app_name = 'frontend'
 urlpatterns = [
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout/', auth_views.logout, {'template_name': 'frontend/login.html'}, name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='frontend:login'), name='logout'),
     path('', RedirectView.as_view(pattern_name='frontend:login')),
     path('course/<slug>/', CourseFeedbackView.as_view(), name='course-detail'),
     path('form/', ApprovalFormView.as_view(), name='approval-form'),

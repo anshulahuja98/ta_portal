@@ -27,10 +27,6 @@ class TeachingAssistantProfile(models.Model):
     def __str__(self):
         return self.rollno + '(' + self.user.get_full_name() + ')'
 
-    def get_ta(rollno):
-        ta = TeachingAssistantProfile.objects.all().filter(rollno=rollno)
-        return ta
-
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug or not instance.rollno:

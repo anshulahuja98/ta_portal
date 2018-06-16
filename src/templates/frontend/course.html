@@ -33,20 +33,16 @@
                                 {% csrf_token %}
                                 {{ form.form_class.month }}
                                 <div hidden>
-                                {{ form.form_class.ta }}
-                                {{ form.form_class.course }}
+                                    {{ form.form_class.ta }}
+                                    {{ form.form_class.course }}
                                 </div>
-                                {#                                <label for="ta_rollno">Your name: </label>#}
-                                {#                                <input id="ta_rollno" type="text" name="ta_rollno" value="{{ profile.rollno }}" >#}
-                                {##}
-                                {#                                <label for="course_code"> Course: </label>#}
-                                {#                                <input id="course_code" type="text" name="course_code" value="{{ course.course_code }}" >#}
                                 <script>
                                     var select_ta = document.getElementById("id_ta");
                                     var select_course = document.getElementById("id_course")
                                     //Set selected
                                     setSelectedValue(select_ta, "{{ profile }}");
-                                    setSelectedValue(select_course,"{{ course }}")
+                                    setSelectedValue(select_course, "{{ course }}")
+
                                     function setSelectedValue(selectObj, valueToSet) {
                                         for (var i = 0; i < selectObj.options.length; i++) {
                                             if (selectObj.options[i].text == valueToSet) {

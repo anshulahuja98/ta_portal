@@ -27,19 +27,13 @@ class DashboardView(LoginRequiredMixin, UserObjectMixin, DetailView):
 class ApprovalFormView(FormView):
     template_name = 'frontend/form.html'
     form_class = ApprovalForm
-    success_url = '/dashboard/'
-
-    def form_invalid(self, form):
-        print(form.errors)
+    success_url = '/dashboard'
 
     def form_valid(self, form):
-        print("valid")
         FeedbackTeachingAssistant.objects.create(ta=form.instance.ta,
                                                  course=form.instance.course,
                                                  month=form.instance.month)
-        # FeedbackTeachingAssistant.objects.create(ta=TeachingAssistantProfile.get_ta(form.instance.ta_roll),
-        #                                          course=Course.get_course(form.instance.course_code),
-        #                                          month=form.instance.month)
+
         return super().form_valid(form)
 
 
