@@ -29,15 +29,17 @@
                     <tr>
                         <th scope="row" style="font-size: 1.3rem;">Request Approval</th>
                         <td style="font-size: 1rem">
-                            <form method="post" action="{% url 'frontend:approval-form' %}">
+                            <form method="post">
                                 {% csrf_token %}
-                                {{ form.form_class.month }}
-                                <div hidden>
-                                    {{ form.form_class.teaching_assistant }}
-                                    {{ form.form_class.course }}
-                                </div>
+                                {{ form.errors }}
+{#                                {{ form }}#}
+{#                                {{ form.as_p }}#}
+                                {#                                <div hidden>#}
+                                {#                                    {{ form.form_class.teaching_assistant }}#}
+                                {#                                    {{ form.form_class.course }}#}
+                                {#                                </div>#}{% comment %}
                                 <script>
-                                    var select_ta = document.getElementById("id_ta");
+                                    var select_ta = document.getElementById("id_teaching_assistant");
                                     var select_course = document.getElementById("id_course")
                                     //Set selected
                                     setSelectedValue(select_ta, "{{ profile }}");
@@ -51,7 +53,7 @@
                                             }
                                         }
                                     }
-                                </script>
+                                </script>{% endcomment %}
                                 <button class="btn btn-primary" type="submit">Request</button>
                             </form>
                         </td>
@@ -91,7 +93,6 @@
                         </tr>
                         </td>
                     {% endfor %}
-
                     </tbody>
                 </table>
             </div>

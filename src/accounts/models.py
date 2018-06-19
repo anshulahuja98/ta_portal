@@ -67,7 +67,7 @@ class FeedbackTeachingAssistant(models.Model):
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.teaching_assistant_supervisor:
-        instance.teaching_assistant_supervisor = instance.ta.teaching_assistant_supervisor
+        instance.teaching_assistant_supervisor = instance.teaching_assistant.teaching_assistant_supervisor
 
 
 pre_save.connect(event_pre_save_receiver, sender=FeedbackTeachingAssistant)

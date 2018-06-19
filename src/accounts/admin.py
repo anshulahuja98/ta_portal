@@ -9,7 +9,7 @@ class FeedbackTeachingAssistantInline(admin.StackedInline):
 @admin.register(TeachingAssistantProfile)
 class TeachingAssistantAdmin(admin.ModelAdmin):
     inlines = (FeedbackTeachingAssistantInline,)
-    list_display = ('rollno',)
+    # list_display = ('rollno',)
 
     class Meta:
         model = TeachingAssistantProfile

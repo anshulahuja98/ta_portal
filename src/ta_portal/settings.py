@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ta_portal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -132,9 +132,9 @@ MEDIA_URL = '/media/'
 
 # Admin portal customisation
 
-ADMIN_SITE_HEADER = 'Central Authentication Service Administration'
-ADMIN_SITE_TITLE = 'Central Authentication Service site admin'
-ADMIN_INDEX_TITLE = 'CAS administration'
+ADMIN_SITE_HEADER = 'Teaching Assistant Portal Administration'
+ADMIN_SITE_TITLE = 'Teaching Assistant Portal Site Admin'
+ADMIN_INDEX_TITLE = 'Teaching Assistant administration'
 
 # Email backend configurations
 
@@ -149,4 +149,6 @@ EMAIL_PORT = '465'
 EMAIL_HOST_USER = config('SERVER_EMAIL', default='noreply@localhost.com', cast=str)
 EMAIL_HOST_PASSWORD = config('SERVER_EMAIL_PASSWORD', default='password', cast=str)
 EMAIL_USE_SSL = True
+
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
