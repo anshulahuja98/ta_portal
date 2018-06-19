@@ -18,7 +18,6 @@ class Course(models.Model):
     def __str__(self):
         return self.course_code
 
-    @property
     def get_absolute_url(self):
         return reverse('frontend:course-detail', kwargs={'slug': self.slug})
 

@@ -18,8 +18,8 @@ class TeachingAssistantAdmin(admin.ModelAdmin):
 
 @admin.register(FeedbackTeachingAssistant)
 class FeedbackTeachingAssistantAdmin(admin.ModelAdmin):
-    list_display = ['get_rollno', 'course', 'ta_sup', 'approve']
-    list_filter = ['ta_sup', ]
+    list_display = ['get_rollno', 'course', 'teaching_assistant_supervisor', 'approve']
+    list_filter = ['teaching_assistant_supervisor', ]
 
     class Meta:
         model = FeedbackTeachingAssistant

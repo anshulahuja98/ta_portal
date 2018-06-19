@@ -21,8 +21,8 @@ class TeachingAssistantProfile(models.Model):
     program = models.CharField(max_length=1, choices=PROGRAMS)
     phone = models.CharField(max_length=10, validators=[contact])
     slug = models.SlugField(blank=True)
-    ta_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, null=True, blank=True,
-                                      on_delete=models.DO_NOTHING)
+    teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, null=True, blank=True,
+                                                      on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.rollno + '(' + self.user.get_full_name() + ')'
@@ -56,17 +56,18 @@ class FeedbackTeachingAssistant(models.Model):
     comments = models.TextField(null=True, blank=True, )
     month = models.CharField(max_length=2, choices=MONTHES)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    ta = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
-    ta_sup = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True, on_delete=models.DO_NOTHING)
+    teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
+    teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True,
+                                                      on_delete=models.DO_NOTHING)
 
     @property
     def get_rollno(self):
-        return self.ta.rollno
+        return self.teaching_assistant.rollno
 
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.ta_sup:
-        instance.ta_sup = instance.ta.ta_supervisor
+    if not instance.teaching_assistant_supervisor:
+        instance.teaching_assistant_supervisor = instance.ta.teaching_assistant_supervisor
 
 
 pre_save.connect(event_pre_save_receiver, sender=FeedbackTeachingAssistant)
