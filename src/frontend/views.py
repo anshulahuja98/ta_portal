@@ -1,11 +1,10 @@
 from accounts.models import TeachingAssistantProfile
-from django.views.generic import View, DetailView
-from django.shortcuts import get_object_or_404
+from django.views.generic import View, DetailView, CreateView
+from django.shortcuts import get_object_or_404, reverse
 from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from courses.models import Course
 from .forms import ApprovalForm
-from django.views.generic.edit import FormView
 
 
 class UserObjectMixin(object):
@@ -23,16 +22,21 @@ class DashboardView(LoginRequiredMixin, UserObjectMixin, DetailView):
     template_name = 'frontend/dashboard.html'
 
 
-class ApprovalFormView(FormView):
+class ApprovalRequestView(CreateView):
     template_name = 'frontend/course.html'
     form_class = ApprovalForm
-    success_url = '/dashboard/'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['teaching_assistant'] = TeachingAssistantProfile.objects.get(user=self.request.user)
-        kwargs['course'] = Course.objects.get(slug=self.kwargs.get('slug'))
-        return kwargs
+    def get_success_url(self):
+        return reverse('frontend:course-detail', kwargs={'slug': self.kwargs.get('slug', None)})
+
+    def post(self, request, *args, **kwargs):
+        self.request.POST._mutable = True
+        self.request.POST.update({
+            'teaching_assistant': TeachingAssistantProfile.objects.get(user=self.request.user).id,
+            'course': Course.objects.get(slug=self.kwargs.get('slug', None)).id
+        })
+        self.request.POST._mutable = False
+        return super().post(request, args, kwargs)
 
 
 class CourseDetailView(DetailView):
@@ -48,11 +52,10 @@ class CourseDetailView(DetailView):
 
 
 class CourseFeedbackView(LoginRequiredMixin, View):
-
     def get(self, request, *args, **kwargs):
         view = CourseDetailView.as_view()
         return view(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        view = ApprovalFormView.as_view()
+        view = ApprovalRequestView.as_view()
         return view(request, *args, **kwargs)
