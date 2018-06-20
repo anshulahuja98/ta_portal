@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <div align="left" style="height: 2rem;width: 2rem">
+            <img src="../../../staticfiles/img/iitj_logo1.png" style="height: 6rem;width: 6rem">
+        </div>
+        <div align="right" style="font-size: 1.4rem;margin-top: -1rem">
+            भारतीय प्रौद्योगिकी संस्थान जोधपुर
+            <br>
+            Indian Institute of Technology Jodhpur
+        </div>
+    </div>
+    <br>
+    <hr><br> <br>
+    <div class="container-fluid">
+        <b style="font-size: larger">
+            To <br>
+            Assistant Registrar (Students)
+        </b>
+        <p> This is to certify that the following {{ program }} students in the Department of {{ department }} have
+            worked
+            for
+            at least 8 hours per week during the month of {{ month }} {{ year }}.
+        </p>
+    </div>
+    <br><br>
+    <div align="center">
+        <table border="1">
+            <tr>
+                <th>S. No.</th>
+                <th>Roll No.</th>
+                <th>Name</th>
+            </tr>
+            {% for student in teachingassistantprofile %}
+                <tr>
+                    <td>{{ }}</td>
+                    <td>{{ student.rollno }}</td>
+                    <td>{{ student.name }}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <br><br>
+    <div align="right">
+        <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </u>
+        <br>
+        Head of the Department
+    </div>
+</div>
+</body>
+</html>
