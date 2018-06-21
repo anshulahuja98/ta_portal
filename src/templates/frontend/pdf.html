@@ -1,27 +1,29 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
+<body style="font-size: 15px">
 <div class="container">
     <div>
         <div align="left" style="height: 2rem;width: 2rem">
-            <img src="../../../staticfiles/img/iitj_logo1.png" style="height: 6rem;width: 6rem">
+            <img src="http://127.0.0.1:8000/static/img/red_logo.png" style="height: 100px;width: 100px    ">
+            {#            <img src="http://127.0.0.1:8000/static/img/red_logo.png" alt="">#}
         </div>
-        <div align="right" style="font-size: 1.4rem;margin-top: -1rem">
+        <div align="right" style="font-size: 22px;;">
             भारतीय प्रौद्योगिकी संस्थान जोधपुर
             <br>
             Indian Institute of Technology Jodhpur
         </div>
     </div>
     <br>
-    <hr><br> <br>
+    <br> <br>
     <div class="container-fluid">
         <b style="font-size: larger">
             To <br>
-            Assistant Registrar (Students)
+            Assistant Regisstrar (Students)
         </b>
         <p> This is to certify that the following {{ program }} students in the Department of {{ department }} have
             worked
@@ -32,16 +34,16 @@
     <br><br>
     <div align="center">
         <table border="1">
-            <tr>
+            <tr style="padding: 2px">
                 <th>S. No.</th>
                 <th>Roll No.</th>
                 <th>Name</th>
             </tr>
-            {% for student in teachingassistantprofile %}
-                <tr>
-                    <td>{{ }}</td>
-                    <td>{{ student.rollno }}</td>
-                    <td>{{ student.name }}</td>
+            {% for student in students %}
+                <tr style="padding: 2px">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ student.user.username }}</td>
+                    <td>{{ student.user.get_full_name }}</td>
                 </tr>
             {% endfor %}
 

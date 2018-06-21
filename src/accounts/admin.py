@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import TeachingAssistantProfile, FeedbackTeachingAssistant
+from adminportal.views import Pdf
 
 
 class FeedbackTeachingAssistantInline(admin.StackedInline):
@@ -9,11 +10,14 @@ class FeedbackTeachingAssistantInline(admin.StackedInline):
 @admin.register(TeachingAssistantProfile)
 class TeachingAssistantAdmin(admin.ModelAdmin):
     inlines = (FeedbackTeachingAssistantInline,)
-    # list_display = ('rollno',)
+    actions = ['pdf_export']
 
     class Meta:
         model = TeachingAssistantProfile
         fields = '__all__'
+
+    def pdf_export(self, *args, **kwargs):
+        Pdf.as_view()
 
 
 @admin.register(FeedbackTeachingAssistant)
