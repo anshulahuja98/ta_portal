@@ -1,0 +1,30 @@
+{% extends 'frontend/sidenavbase.html' %}
+{% block current %}  default-color {% endblock %}
+{% block body %}
+    <div>
+        <br>
+        TA Assignment for Semester I, AY 2018-2019
+        <br>
+        <br>
+        <table class="table">
+            <thead class=" lighten-4" style="background: #ccfff3 ">
+            <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>TA Supervisor</th>
+                <th>Status</th>
+                <th>Due by</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">EE121</th>
+                <td>Basic Electronics</td>
+                <td>Rajlaxmi Chauhan</td>
+                <td>Approved lorem ipsum doler</td>
+                <td>20 July 2018</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

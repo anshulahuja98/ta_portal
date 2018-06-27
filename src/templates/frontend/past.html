@@ -1,0 +1,49 @@
+{% extends 'frontend/sidenavbase.html' %}
+{% block past %}  default-color {% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div>
+                <br>
+                TA Assignment for Semester I, AY 2018-2019
+                <br>
+                <br>
+                <table class="table table-striped">
+                    <thead class=" lighten-4" style="background: #ccfff3 ">
+                    <tr>
+                        <th>Month</th>
+                        <th>Course Code</th>
+                        <th>Course Name</th>
+                        <th>TA Supervisor</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for feedback in feedbacks %}
+                        <tr>
+                            <td>{{ feedback.get_month_display }}</td>
+                            <td>{{ feedback.course.course_code }}</td>
+                            <td>{{ feedback.course.course_name }}</td>
+                            <td>{{ feedback.teaching_assistant_supervisor }}</td>
+                            <td>
+                                {% if feedback.approve %}
+                                    Approved
+                                {% else %}
+                                    Not Approved
+                                {% endif %}
+                            </td>
+                            <td>{{ feedback.comments }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+
+    </div>
+
+{% endblock %}

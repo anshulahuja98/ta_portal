@@ -19,7 +19,7 @@ class Course(models.Model):
         return self.course_code
 
     def get_absolute_url(self):
-        return reverse('frontend:course-detail', kwargs={'slug': self.slug})
+        return reverse('frontend:past', kwargs={'slug': self.slug})
 
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):

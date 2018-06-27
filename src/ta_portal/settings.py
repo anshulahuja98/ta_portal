@@ -151,4 +151,4 @@ EMAIL_HOST_PASSWORD = config('SERVER_EMAIL_PASSWORD', default='password', cast=s
 EMAIL_USE_SSL = True
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/current/'

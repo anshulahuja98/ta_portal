@@ -16,14 +16,14 @@ class LoginView(DefaultLoginView):
     template_name = 'frontend/login.html'
 
 
-class DashboardView(LoginRequiredMixin, UserObjectMixin, DetailView):
+class DetailView(LoginRequiredMixin, UserObjectMixin, DetailView):
     context_object_name = 'profile'
     model = TeachingAssistantProfile
-    template_name = 'frontend/dashboard.html'
+    template_name = 'frontend/details.html'
 
 
 class ApprovalRequestView(CreateView):
-    template_name = 'frontend/course.html'
+    template_name = 'frontend/past.html'
     form_class = ApprovalForm
 
     def get_success_url(self):
@@ -40,7 +40,7 @@ class ApprovalRequestView(CreateView):
 
 
 class CourseDetailView(DetailView):
-    template_name = 'frontend/course.html'
+    template_name = 'frontend/past.html'
     model = Course
 
     def get_context_data(self, **kwargs):

@@ -1,54 +1,58 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en" class="full-height">
 <head>
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../staticfiles/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <title></title>
 </head>
 <body onload="openNav()">
-
+<!--Side Nav-->
 <div id="mySidenav" class="sidenav" style="background: #ccfff3  ;border: black; ">
-
     <ul class="navbar-nav mr-auto" style="">
-        <li class="nav-item default-color">
-            <a class="nav-item" href="" style="color: black; font-size: 1.1rem; padding-bottom: 1rem;text-align: right">Current
+
+
+        <li class="nav-item {% block current %} {% endblock %}">
+            <a class="nav-item " href="{% url 'frontend:current' %}"
+               style="color: black;font-size: 1rem; padding-bottom: 1rem;text-align: right">Current
+                TA Assignment &nbsp;<i class="fa fa-angle-right"></i> &nbsp</a>
+        </li>
+        <li class="nav-item {% block past %} {% endblock %}">
+            <a class="nav-item " href="{% url 'frontend:past' %}"
+               style="color: black;font-size: 1rem; padding-bottom: 1rem;text-align: right">Past
                 TA Assignment &nbsp;<i class=" 	fa fa-angle-right"></i> &nbsp</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-item" href="" style="color: black;font-size: 1.1rem; padding-bottom: 1rem;text-align: right">Past
-                TA Assignment &nbsp;<i class=" 	fa fa-angle-right"></i> &nbsp</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-item" href="" style="color: black;font-size: 1.1rem; padding-bottom: 1rem;text-align: right">Update
-                Details &nbsp;<i class=" 	fa fa-angle-right"></i> &nbsp</a>
+        <li class="nav-item {% block detail %} {% endblock %}">
+            <a class="nav-item " href="{% url 'frontend:detail' %}"
+               style="color: black;font-size: 1rem; padding-bottom: 1rem;text-align: right">Update
+                Details &nbsp;<i class="fa fa-angle-right"></i> &nbsp</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-item" href="" style="color: black;font-size: 1.1rem; padding-bottom: 1rem;text-align: right">Logout
+            <a class="nav-item" href="{% url 'frontend:logout' %}"
+               style="color: black;font-size: 1rem; padding-bottom: 1rem;text-align: right">Logout
                 <i class="fa fa-sign-out"></i>&nbsp</a>
         </li>
-
     </ul>
 </div>
+<!--/Side Nav-->
+<!--Heading-->
 <div id="main">
     <div class="main-heading">
         <div class="row">
             <div class="col-md-12">
                 <div class="media" style="margin-left: auto; margin-bottom: 1px; margin-top: 1rem; margin-right: auto;">
                     <a class="thumbnail pull-left">
-                        <i class="fa fa-bars fa-large" onclick="toggleNav()"></i>
-                        &nbsp &nbsp
-                        <img src="../../../staticfiles/img/red_logo.png" alt="IIT Jodhpur" class="logo"
+                        <i class="fa fa-bars fa-large" onclick="toggleNav()"></i>&nbsp &nbsp
+                        <img src="{% static 'img/red_logo.png' %}" alt="IIT Jodhpur" class="logo"
                              style="height:5rem; width:auto;">
                         &nbsp</a>
-
                     <div class="media-body" style="margin-left:10px; margin-top: 10px;">
                         <h4 class="heading big" style="font-weight:400"><a href="http://spc.iitj.ac.in/"
                                                                            style="color: black;">Teaching Assistant
@@ -62,41 +66,9 @@
             </div>
         </div>
     </div>
-    </nav>
-    <div>
-        <br>
-        TA Assignment for Semester I, AY 2018-2019
-        <br>
-        <br>
-        <table class="table">
-            <thead class=" lighten-4" style="background: #ccfff3 ">
-            <tr>
-                <th>Course Code</th>
-                <th>Course Name</th>
-                <th>TA Supervisor</th>
-                <th>Status</th>
-                <th>Due by</th>
+    <!--/Heading-->
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">EE121</th>
-                <td>Basic Electronics</td>
-                <td>Rajlaxmi Chauhan</td>
-                <td>Approved lorem ipsum doler</td>
-                <td>20 July 2018</td>
-            </tr>
-            <tr>
-                <th scope="row">EE121</th>
-                <td>Basic Electronics</td>
-                <td>Rajlaxmi Chauhan</td>
-                <td>Approved lorem ipsum doler</td>
-                <td>20 July 2018</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    {% block body %} {% endblock %}
 </div>
 
 <!-- /#wrapper -->
@@ -112,7 +84,6 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
 <script type="text/javascript">
-    /* Set the width of the side navigation to 250px */
     function toggleNav() {
         if (document.getElementById("mySidenav").style.width == "15rem")
             closeNav();
@@ -126,11 +97,9 @@
         document.getElementById("main").style.marginLeft = "15rem";
     }
 
-    /* Set the width of the side navigation to 0 */
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("main").style.marginLeft = "0";
-
     }
 </script>
 </body>
