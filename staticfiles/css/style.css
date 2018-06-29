@@ -8,17 +8,36 @@
     left: 0;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    margin-top: 8rem;
 }
-
+.default-color{
+    background-color:#5A6D7E !important; ;
+}
+.sidenavborder{
+    border-top: 1px solid #000000;
+}
+.sidenavtitle{
+    font-family: Roboto-Regular;
+    font-size: 12px;
+    color: #798188;
+    letter-spacing: 0;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+    padding-top: 2rem;
+}
+.arrow_right{
+    float: right;
+    padding-right: 1rem;
+}
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding-top: 1rem;
+    padding-left: 2rem;
     border: all;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #5A6D7E;
     display: block;
     transition: 0.3s;
 }
@@ -28,14 +47,17 @@
     color: #f1f1f1;
 }
 
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+.theader{
+    font-family: Roboto-Bold;
+    font-size: 14px;
+    color: #373737;
+    letter-spacing: 0;
+
 }
+.threebars{
+    margin-left: 1rem;
+}
+
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
