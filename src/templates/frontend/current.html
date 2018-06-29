@@ -1,6 +1,7 @@
 {% extends 'frontend/sidenavbase.html' %}
 {% block current %}  default-color {% endblock %}
 {% block body %}
+
     <div>
         <br>
         TA Assignment for Semester I, AY 2018-2019
@@ -17,13 +18,70 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">EE121</th>
-                <td>Basic Electronics</td>
-                <td>Rajlaxmi Chauhan</td>
-                <td>Approved lorem ipsum doler</td>
-                <td>20 July 2018</td>
-            </tr>
+            {% for course in profile.course_set.all %}
+                <form method="post">
+                    {{ cour }}
+                    {% csrf_token %}
+                    {{ form.errors }}
+                    <tr>
+                        <th scope="row">
+                            {{ course }}
+                            <select name="course" required id="id_course" hidden>
+                                <option value="1" selected>{{ course }}</option>
+                            </select>
+                        </th>
+                        <td>{{ course.course_name }}</td>
+                        <td>
+                            {{ profile.teaching_assistant_supervisor }}
+                        </td>
+                        <td>
+                            {% if check_feedback_status == 0 %}
+                                <span style="color: #4285F4;">Submit TA Release request for {{ current_month }} &nbsp;{{ current_year }}</span>
+                            {% elif check_feedback_status == 1 %}
+                                <span style="color: aquamarine;">TA Release request approved for {{ current_month }} &nbsp;{{ current_year }}</span>
+                            {% elif check_feedback_status == -1 %}
+                                <span style="color: red">TA Release request pending approval for {{ current_month }} &nbsp;{{ current_year }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            20 {{ current_month }} &nbsp;{{ current_year }}
+                        </td>
+                    </tr>
+                    <br>
+                    {% if check_feedback_status == 0 %}
+                        <tr>
+                            <td colspan="4" style="font-size: 1.3rem">
+                                TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}
+                                <textarea name="duty_completed" cols="10" rows="5" style="width: 100%"
+                                          id="id_duty_completed"> </textarea>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button class="btn btn-primary" type="submit">Send Request for Approval</button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    {% elif check_feedback_status == -1 %}
+                        <tr>
+                            <td colspan="5">
+                                <b style="font-size: 1.1rem" >  TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <p>{{ current_feedback }}</p>
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                </form>
+            {% endfor %}
+
             </tbody>
         </table>
     </div>

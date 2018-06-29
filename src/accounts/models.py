@@ -22,7 +22,7 @@ class TeachingAssistantProfile(models.Model):
     phone = models.CharField(max_length=10, validators=[contact])
     slug = models.SlugField(blank=True)
     teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, null=True, blank=True,
-                                                      on_delete=models.DO_NOTHING)
+                                                      on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.rollno + '(' + self.user.get_full_name() + ')'
@@ -58,11 +58,14 @@ class FeedbackTeachingAssistant(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
     teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True,
-                                                      on_delete=models.DO_NOTHING)
+                                                      on_delete=models.SET_NULL)
+    duty_completed = models.TextField(null=True, blank=True)
 
     @property
     def get_rollno(self):
         return self.teaching_assistant.rollno
+    # def check_status(self):
+    #     if(self.)
 
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
