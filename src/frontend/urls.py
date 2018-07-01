@@ -1,13 +1,13 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
-from .views import DetailView, LoginView, CourseFeedbackView, CourseDetailView
+from .views import ProfileDetailView, LoginView, CourseFeedbackView, CourseDetailView
 from adminportal.views import Pdf
 
 app_name = 'frontend'
 
 urlpatterns = [
-    path('details/', DetailView.as_view(), name='detail'),
+    path('details/', ProfileDetailView.as_view(), name='detail'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='frontend:login'), name='logout'),
     # path('passwordreset/', auth_views.PasswordResetView, name='passwordreset'),

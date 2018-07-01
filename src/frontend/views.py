@@ -1,10 +1,12 @@
+from django.utils import timezone
+
 from accounts.models import TeachingAssistantProfile
-from django.views.generic import View, CreateView
-from django.views.generic import DetailView as DefaultDetailView
+from django.views.generic import View, CreateView, TemplateView
+from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404, reverse
 from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from courses.models import Course
+from courses.models import Course, Feedback
 from .forms import ApprovalForm
 import datetime
 
@@ -18,24 +20,24 @@ class LoginView(DefaultLoginView):
     template_name = 'frontend/login.html'
 
 
-class DetailView(LoginRequiredMixin, UserObjectMixin, DefaultDetailView):
+class ProfileDetailView(LoginRequiredMixin, UserObjectMixin, DetailView):
     context_object_name = 'profile'
     model = TeachingAssistantProfile
     template_name = 'frontend/details.html'
 
 
-class CourseDetailView(DefaultDetailView, UserObjectMixin):
+class CourseDetailView(UserObjectMixin, DetailView):
     template_name = 'frontend/past.html'
     model = Course
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['feedbacks'] = self.get_object().feedbackteachingassistant_set.filter(
+        context['feedbacks'] = self.get_object().feedback_set.filter(
             teaching_assistant__user=self.request.user)
         return context
 
 
-class ApprovalRequestView(CreateView, UserObjectMixin):
+class ApprovalRequestView(UserObjectMixin, CreateView):
     template_name = 'frontend/current.html'
     form_class = ApprovalForm
 
@@ -54,28 +56,33 @@ class ApprovalRequestView(CreateView, UserObjectMixin):
         return super().post(request, args, kwargs)
 
 
-class CourseApprovalDetailView(DetailView, UserObjectMixin):
-    model = Course
-
+class CourseApprovalDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['form'] = ApprovalForm()
-        time_now = datetime.datetime.now()
-        current_feedback = self.get_object().feedback_set.filter(
-            teaching_assistant__user=self.request.user, requested_on__month=time_now.month)
-        if current_feedback[0].is_approved:
-            check_feedback_status = 1
-            context['current_feedback'] = current_feedback[0].duties_description
-
-        elif not current_feedback[0].is_approved:
-            check_feedback_status = -1
-            context['current_feedback'] = current_feedback[0].duties_description
-        else:
-            check_feedback_status = 0
-
-        context['check_feedback_status'] = check_feedback_status
+        context['profile'] = TeachingAssistantProfile.objects.get(user=self.request.user)
+        context['no_feedback_courses'] = self.get_excluded_courses()
+        # time_now = datetime.datetime.now()
+        # current_feedback = self.get_object().feedback_set.filter(
+        #     teaching_assistant__user=self.request.user, requested_on__month=time_now.month)
+        # if current_feedback[0].is_approved:
+        #     check_feedback_status = 1
+        #     context['current_feedback'] = current_feedback[0].duties_description
+        #
+        # elif not current_feedback[0].is_approved:
+        #     check_feedback_status = -1
+        #     context['current_feedback'] = current_feedback[0].duties_description
+        # else:
+        #     check_feedback_status = 0
+        #
+        # context['check_feedback_status'] = check_feedback_status
         context['form'] = ApprovalForm()
         return context
+
+    def get_excluded_courses(self):
+        return set(Course.objects.filter(teaching_assistants__user=self.request.user)) - set(
+            Course.objects.filter(
+                id__in=Feedback.objects.filter(teaching_assistant__user=self.request.user,
+                                               requested_on__month=timezone.now().month).values_list('course')))
 
 
 class CourseFeedbackView(LoginRequiredMixin, View):

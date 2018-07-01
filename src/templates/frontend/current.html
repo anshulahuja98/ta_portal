@@ -19,70 +19,71 @@
             </tr>
             </thead>
             <tbody>
+            {% for course in no_feedback_courses %}
+                {{ course.course_code }}
+            {% endfor %}
             {% for feedback in profile.feedback_set.current %}
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.errors }}
+                <tr>
+                    <th scope="row">
+                        {{ feedback.course.course_code }}
+                    </th>
+                    <td>{{ feedback.course.course_name }}</td>
+                    <td>
+                        {{ profile.teaching_assistant_supervisor }}
+                    </td>
+                    <td>
+                        {% if check_feedback_status == 0 %}
+                            <span style="color: #4285F4;">Submit TA Release request for {{ feedback.requested_on|date:"F" }}</span>
+                        {% elif check_feedback_status == 1 %}
+                            <span style="color: aquamarine;">TA Release request approved for {{ feedback.requested_on|date:"F" }}</span>
+                        {% elif check_feedback_status == -1 %}
+                            <span style="color: red">TA Release request pending approval for {{ feedback.requested_on|date:"F" }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        20 {{ feedback.requested_on|date:"F" }}, {{ feedback.requested_on|date:"Y" }}
+                    </td>
+                </tr>
+                <br>
+                {% if check_feedback_status == 0 %}
                     <tr>
-                        <th scope="row">
-                            {{ feedback.course.course_code }}
-                            <select name="course" required id="id_course" hidden>
-                                <option value="1" selected>{{ feedback.course.course_code }}</option>
-                            </select>
-                        </th>
-                        <td>{{ feedback.course.course_name }}</td>
-                        <td>
-                            {{ profile.teaching_assistant_supervisor }}
+                        <td colspan="4" style="font-size: 1.3rem">
+                            TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}
+                            <textarea name="duty_completed" cols="10" rows="5" style="width: 100%"
+                                      id="id_duty_completed"> </textarea>
                         </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                            {% if check_feedback_status == 0 %}
-                                <span style="color: #4285F4;">Submit TA Release request for {{ feedback.requested_on|date:"F" }}</span>
-                            {% elif check_feedback_status == 1 %}
-                                <span style="color: aquamarine;">TA Release request approved for {{ feedback.requested_on|date:"F" }}</span>
-                            {% elif check_feedback_status == -1 %}
-                                <span style="color: red">TA Release request pending approval for {{ feedback.requested_on|date:"F" }}</span>
-                            {% endif %}
+                            <button class="btn btn-primary" type="submit">Send Request for Approval</button>
                         </td>
-                        <td>
-                            20 {{ feedback.requested_on|date:"F" }}, {{ feedback.requested_on|date:"Y" }}
+                        <td></td>
+                    </tr>
+                {% elif check_feedback_status == -1 %}
+                    <tr>
+                        <td colspan="5">
+                            <b style="font-size: 1.1rem"> TA Duties completed for {{ current_month }}
+                                &nbsp;{{ current_year }}</b>
                         </td>
                     </tr>
-                    <br>
-                    {% if check_feedback_status == 0 %}
-                        <tr>
-                            <td colspan="4" style="font-size: 1.3rem">
-                                TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}
-                                <textarea name="duty_completed" cols="10" rows="5" style="width: 100%"
-                                          id="id_duty_completed"> </textarea>
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button class="btn btn-primary" type="submit">Send Request for Approval</button>
-                            </td>
-                            <td></td>
-                        </tr>
-                    {% elif check_feedback_status == -1 %}
-                        <tr>
-                            <td colspan="5">
-                                <b style="font-size: 1.1rem" >  TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                <p>{{ current_feedback }}</p>
-                            </td>
-                        </tr>
-                    {% endif %}
-
-                </form>
+                    <tr>
+                        <td colspan="5">
+                            <p>{{ current_feedback }}</p>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
-
             </tbody>
         </table>
+    </div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.errors }}
+        </form>
     </div>
 {% endblock %}
