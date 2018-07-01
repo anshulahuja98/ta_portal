@@ -55,23 +55,21 @@ class ApprovalRequestView(CreateView, UserObjectMixin):
 
 
 class CourseApprovalDetailView(DetailView, UserObjectMixin):
-    template_name = 'frontend/past.html'
     model = Course
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['form'] = ApprovalForm()
-        context['current_month'] = datetime.datetime.now().strftime("%B")
-        context['current_year'] = datetime.datetime.now().strftime("%Y")
-        current_feedback = self.get_object().feedbackteachingassistant_set.filter(
-            teaching_assistant__user=self.request.user, month=datetime.date.today().month)
-        if current_feedback[0].approve is True:
+        time_now = datetime.datetime.now()
+        current_feedback = self.get_object().feedback_set.filter(
+            teaching_assistant__user=self.request.user, requested_on__month=time_now.month)
+        if current_feedback[0].is_approved:
             check_feedback_status = 1
-            context['current_feedback'] = current_feedback[0].duty_completed
+            context['current_feedback'] = current_feedback[0].duties_description
 
-        elif current_feedback[0].approve is False:
+        elif not current_feedback[0].is_approved:
             check_feedback_status = -1
-            context['current_feedback'] = current_feedback[0].duty_completed
+            context['current_feedback'] = current_feedback[0].duties_description
         else:
             check_feedback_status = 0
 

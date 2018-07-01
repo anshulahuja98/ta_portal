@@ -1,4 +1,5 @@
 {% extends 'frontend/sidenavbase.html' %}
+{% load humanize %}
 {% block current %}  default-color {% endblock %}
 {% block body %}
 
@@ -18,33 +19,32 @@
             </tr>
             </thead>
             <tbody>
-            {% for course in profile.course_set.all %}
+            {% for feedback in profile.feedback_set.current %}
                 <form method="post">
-                    {{ cour }}
                     {% csrf_token %}
                     {{ form.errors }}
                     <tr>
                         <th scope="row">
-                            {{ course }}
+                            {{ feedback.course.course_code }}
                             <select name="course" required id="id_course" hidden>
-                                <option value="1" selected>{{ course }}</option>
+                                <option value="1" selected>{{ feedback.course.course_code }}</option>
                             </select>
                         </th>
-                        <td>{{ course.course_name }}</td>
+                        <td>{{ feedback.course.course_name }}</td>
                         <td>
                             {{ profile.teaching_assistant_supervisor }}
                         </td>
                         <td>
                             {% if check_feedback_status == 0 %}
-                                <span style="color: #4285F4;">Submit TA Release request for {{ current_month }} &nbsp;{{ current_year }}</span>
+                                <span style="color: #4285F4;">Submit TA Release request for {{ feedback.requested_on|date:"F" }}</span>
                             {% elif check_feedback_status == 1 %}
-                                <span style="color: aquamarine;">TA Release request approved for {{ current_month }} &nbsp;{{ current_year }}</span>
+                                <span style="color: aquamarine;">TA Release request approved for {{ feedback.requested_on|date:"F" }}</span>
                             {% elif check_feedback_status == -1 %}
-                                <span style="color: red">TA Release request pending approval for {{ current_month }} &nbsp;{{ current_year }}</span>
+                                <span style="color: red">TA Release request pending approval for {{ feedback.requested_on|date:"F" }}</span>
                             {% endif %}
                         </td>
                         <td>
-                            20 {{ current_month }} &nbsp;{{ current_year }}
+                            20 {{ feedback.requested_on|date:"F" }}, {{ feedback.requested_on|date:"Y" }}
                         </td>
                     </tr>
                     <br>

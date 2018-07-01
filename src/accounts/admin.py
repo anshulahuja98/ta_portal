@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import TeachingAssistantProfile, FeedbackTeachingAssistant
+from courses.models import Feedback
+from .models import TeachingAssistantProfile
 from adminportal.views import Pdf
 
 
 class FeedbackTeachingAssistantInline(admin.StackedInline):
-    model = FeedbackTeachingAssistant
+    model = Feedback
 
 
 @admin.register(TeachingAssistantProfile)
@@ -20,10 +21,10 @@ class TeachingAssistantAdmin(admin.ModelAdmin):
         Pdf.as_view()
 
 
-@admin.register(FeedbackTeachingAssistant)
+@admin.register(Feedback)
 class FeedbackTeachingAssistantAdmin(admin.ModelAdmin):
-    list_display = ['get_rollno', 'course', 'teaching_assistant_supervisor', 'approve']
+    list_display = ['get_roll_no', 'course', 'teaching_assistant_supervisor', 'is_approved']
     list_filter = ['teaching_assistant_supervisor', ]
 
     class Meta:
-        model = FeedbackTeachingAssistant
+        model = Feedback

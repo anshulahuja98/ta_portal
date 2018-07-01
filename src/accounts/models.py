@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-from courses.models import Course
 from django.db.models.signals import pre_save
 from adminportal.models import TeachingAssistantSupervisorProfile
 
@@ -17,7 +16,7 @@ class TeachingAssistantProfile(models.Model):
     contact = RegexValidator(r'^[6-9][0-9]{9}')
     # Model
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rollno = models.CharField(max_length=8, validators=[roll], blank=True)
+    roll_no = models.CharField(max_length=8, validators=[roll], blank=True)
     program = models.CharField(max_length=1, choices=PROGRAMS)
     phone = models.CharField(max_length=10, validators=[contact])
     slug = models.SlugField(blank=True)
@@ -25,7 +24,7 @@ class TeachingAssistantProfile(models.Model):
                                                       on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.rollno + '(' + self.user.get_full_name() + ')'
+        return self.roll_no + '(' + self.user.get_full_name() + ')'
 
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
@@ -35,42 +34,3 @@ def event_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(event_pre_save_receiver, sender=TeachingAssistantProfile)
-
-
-class FeedbackTeachingAssistant(models.Model):
-    MONTHES = (
-        ('1', 'January'),
-        ('2', 'February'),
-        ('3', 'March'),
-        ('4', 'April'),
-        ('5', 'May'),
-        ('6', 'June'),
-        ('7', 'July'),
-        ('8', 'August'),
-        ('9', 'September'),
-        ('10', 'October'),
-        ('11', 'November'),
-        ('12', 'December')
-    )
-    approve = models.BooleanField(default=False)
-    comments = models.TextField(null=True, blank=True, )
-    month = models.CharField(max_length=2, choices=MONTHES)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
-    teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True,
-                                                      on_delete=models.SET_NULL)
-    duty_completed = models.TextField(null=True, blank=True)
-
-    @property
-    def get_rollno(self):
-        return self.teaching_assistant.rollno
-    # def check_status(self):
-    #     if(self.)
-
-
-def event_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.teaching_assistant_supervisor:
-        instance.teaching_assistant_supervisor = instance.teaching_assistant.teaching_assistant_supervisor
-
-
-pre_save.connect(event_pre_save_receiver, sender=FeedbackTeachingAssistant)

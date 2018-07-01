@@ -1,8 +1,8 @@
 from django import forms
-from accounts.models import FeedbackTeachingAssistant
+from courses.models import Feedback
 
 
 class ApprovalForm(forms.ModelForm):
     class Meta:
-        model = FeedbackTeachingAssistant
+        model = Feedback
         fields = '__all__'
