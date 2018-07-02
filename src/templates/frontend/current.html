@@ -1,8 +1,9 @@
 {% extends 'frontend/sidenavbase.html' %}
 {% load humanize %}
+{% load course_index %}
+
 {% block current %}  default-color {% endblock %}
 {% block body %}
-
     <div>
         <br>
         TA Assignment for Semester I, AY 2018-2019
@@ -19,9 +20,6 @@
             </tr>
             </thead>
             <tbody>
-            {% for course in no_feedback_courses %}
-                {{ course.course_code }}
-            {% endfor %}
             {% for feedback in profile.feedback_set.current %}
                 <tr>
                     <th scope="row">
@@ -29,32 +27,81 @@
                     </th>
                     <td>{{ feedback.course.course_name }}</td>
                     <td>
-                        {{ profile.teaching_assistant_supervisor }}
+                        {{ feedback.teaching_assistant_supervisor }}
                     </td>
                     <td>
-                        {% if check_feedback_status == 0 %}
-                            <span style="color: #4285F4;">Submit TA Release request for {{ feedback.requested_on|date:"F" }}</span>
-                        {% elif check_feedback_status == 1 %}
-                            <span style="color: aquamarine;">TA Release request approved for {{ feedback.requested_on|date:"F" }}</span>
-                        {% elif check_feedback_status == -1 %}
-                            <span style="color: red">TA Release request pending approval for {{ feedback.requested_on|date:"F" }}</span>
+                        {% if feedback.is_approve %}
+                            <div style="color: limegreen;"
+                                 onclick="toggleDuties('{{ feedback.course.course_code }}')">TA Release request
+                                approved for {{ feedback.requested_on|date:"F" }} (Click to see duties and comments)
+                            </div>
+                        {% else %}
+                            <div style="color: red" onclick="toggleDuties('{{ feedback.course.course_code }}')">TA
+                                Release request pending approval for {{ feedback.requested_on|date:"F" }} (Click to see
+                                duties)
+                            </div>
                         {% endif %}
                     </td>
                     <td>
                         20 {{ feedback.requested_on|date:"F" }}, {{ feedback.requested_on|date:"Y" }}
                     </td>
+                <tr class="{{ feedback.course.course_code }}" style="display: none">
+                    <td colspan="5">
+                        <b style="font-size: 1.1rem"> TA Duties completed
+                            for {{ time_now|date:"F" }}, {{ time_now|date:"Y" }}
+                            &nbsp;</b>
+                        <p>{{ feedback.duties_description }}    </p>
+                    </td>
                 </tr>
-                <br>
-                {% if check_feedback_status == 0 %}
-                    <tr>
-                        <td colspan="4" style="font-size: 1.3rem">
-                            TA Duties completed for {{ current_month }} &nbsp;{{ current_year }}
-                            <textarea name="duty_completed" cols="10" rows="5" style="width: 100%"
-                                      id="id_duty_completed"> </textarea>
+                {% if feedback.is_approve %}
+                    <tr class="{{ feedback.course.course_code }}" style="display: none">
+                        <td colspan="5">
+                            <p>{{ feedback.comments }}</p>
                         </td>
-                        <td></td>
                     </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% for course in no_feedback_courses %}
+
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.errors }}
                     <tr>
+                        <select name="course" required id="id_course" hidden>
+                            <option value="{% index course.course_code %}" selected>{{ course.course_code }}</option>
+                        </select>
+                        <th scope="row">
+                            {{ course.course_code }}
+                        </th>
+                        <td>{{ course.course_name }}</td>
+                        <td>
+                            {{ profile.teaching_assistant_supervisor }}
+                        </td>
+                        <td>
+                            <span style="color: blue" onclick="toggleDuties('{{ course.course_code }}')"> Submit TA Release request for {{ time_now|date:"F" }}, {{ time_now|date:"Y" }} (Click to submit)</span>
+                        </td>
+                        <td>
+                            20 {{ time_now|date:"F" }}, {{ time_now|date:"Y" }}
+                        </td>
+                    </tr>
+                    <tr class="{{ course.course_code }}" style="display: none">
+                        <td colspan="5">
+                            <b style="font-size: 1.1rem"> TA Duties completed
+                                for {{ time_now|date:"F" }}, {{ time_now|date:"Y" }}
+                                &nbsp;</b>
+                        </td>
+                    </tr>
+
+                    <tr class="{{ course.course_code }}" style="display: none">
+                        <td colspan="5">
+                           <textarea name="duties_description" cols="80" rows="5" id="id_duties_description">
+                            </textarea>
+                        </td>
+                    </tr>
+
+                    <tr class="{{ course.course_code }}" style="display: none">
                         <td></td>
                         <td></td>
                         <td></td>
@@ -63,27 +110,32 @@
                         </td>
                         <td></td>
                     </tr>
-                {% elif check_feedback_status == -1 %}
-                    <tr>
-                        <td colspan="5">
-                            <b style="font-size: 1.1rem"> TA Duties completed for {{ current_month }}
-                                &nbsp;{{ current_year }}</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">
-                            <p>{{ current_feedback }}</p>
-                        </td>
-                    </tr>
-                {% endif %}
+                </form>
             {% endfor %}
+
             </tbody>
         </table>
     </div>
     <div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.errors }}
-        </form>
     </div>
+
+
+
+    <script type="text/javascript">
+        var duty_id;
+
+        function toggleDuties(course_code) {
+            console.log(course_code)
+            x = document.getElementsByClassName(course_code)
+
+            console.log(x[0])
+
+            for (i = 0; i < x.length; i++)
+                if (x[i].style.display == "none")
+                    x[i].style.display = "";
+                else
+                    x[i].style.display = "none";
+        }
+    </script>
+
 {% endblock %}

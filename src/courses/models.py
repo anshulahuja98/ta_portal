@@ -14,7 +14,7 @@ class Course(models.Model):
     faculty = models.ForeignKey(FacultyProfile, on_delete=models.CASCADE)
     course_code = models.CharField(max_length=5, validators=[code])
     course_name = models.CharField(max_length=100)
-    teaching_assistants = models.ManyToManyField('accounts.TeachingAssistantProfile')
+    teaching_assistants = models.ManyToManyField('accounts.TeachingAssistantProfile', blank=True)
     slug = models.SlugField(blank=True)
 
     def __str__(self):
@@ -39,7 +39,7 @@ class FeedbackManager(models.Manager):
 
 class Feedback(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE)
+    teaching_assistant = models.ForeignKey(TeachingAssistantProfile, on_delete=models.CASCADE, null=True, blank=True)
     teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True,
                                                       on_delete=models.SET_NULL)
     requested_on = models.DateTimeField(auto_now_add=True)

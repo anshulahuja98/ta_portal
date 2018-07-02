@@ -49,8 +49,7 @@ class ApprovalRequestView(UserObjectMixin, CreateView):
         self.request.POST.update({
             'teaching_assistant': TeachingAssistantProfile.objects.get(user=self.request.user).id,
             'teaching_assistant_supervisor': TeachingAssistantProfile.objects.get(
-                user=self.request.user).teaching_assistant_supervisor.id,
-            'month': datetime.datetime.now().month,
+                user=self.request.user).teaching_assistant_supervisor.id
         })
         self.request.POST._mutable = False
         return super().post(request, args, kwargs)
@@ -61,21 +60,8 @@ class CourseApprovalDetailView(TemplateView):
         context = super().get_context_data()
         context['profile'] = TeachingAssistantProfile.objects.get(user=self.request.user)
         context['no_feedback_courses'] = self.get_excluded_courses()
-        # time_now = datetime.datetime.now()
-        # current_feedback = self.get_object().feedback_set.filter(
-        #     teaching_assistant__user=self.request.user, requested_on__month=time_now.month)
-        # if current_feedback[0].is_approved:
-        #     check_feedback_status = 1
-        #     context['current_feedback'] = current_feedback[0].duties_description
-        #
-        # elif not current_feedback[0].is_approved:
-        #     check_feedback_status = -1
-        #     context['current_feedback'] = current_feedback[0].duties_description
-        # else:
-        #     check_feedback_status = 0
-        #
-        # context['check_feedback_status'] = check_feedback_status
         context['form'] = ApprovalForm()
+        context['time_now'] = datetime.datetime.now()
         return context
 
     def get_excluded_courses(self):
