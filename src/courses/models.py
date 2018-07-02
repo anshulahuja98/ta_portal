@@ -43,7 +43,7 @@ class Feedback(models.Model):
     teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, blank=True, null=True,
                                                       on_delete=models.SET_NULL)
     requested_on = models.DateTimeField(auto_now_add=True)
-    modified_on = models.DateTimeField(null=True, blank=True)
+    modified_on = models.DateTimeField(editable=False, null=True, blank=True)
     changes_requested = models.BooleanField(default=False)
     comments = models.TextField(null=True, blank=True)
     duties_description = models.TextField(null=True, blank=True)
@@ -56,12 +56,17 @@ class Feedback(models.Model):
 
     @property
     def is_approved(self):
-        return True if (self.modified_on and not self.changes_requested) else False
+        return True if (
+                self.modified_on and self.comments is not None and
+                self.comments != '' and not self.changes_requested
+        ) else False
 
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.teaching_assistant_supervisor:
         instance.teaching_assistant_supervisor = instance.teaching_assistant.teaching_assistant_supervisor
+    if not instance._state.adding:
+        instance.modified_on = timezone.now()
 
 
 pre_save.connect(event_pre_save_receiver, sender=Feedback)
