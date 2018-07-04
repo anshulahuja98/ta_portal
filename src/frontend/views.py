@@ -63,7 +63,7 @@ class ApprovalRequestView(UserObjectMixin, CreateView):
 class CourseApprovalDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['form'] = TeachingAssistantProfile.objects.get(user=self.request.user)
+        context['profile'] = TeachingAssistantProfile.objects.get(user=self.request.user)
         context['no_feedback_courses'] = self.get_excluded_courses()
         context['form'] = ApprovalForm()
         context['time_now'] = datetime.datetime.now()
