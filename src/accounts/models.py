@@ -22,15 +22,22 @@ class TeachingAssistantProfile(models.Model):
     slug = models.SlugField(blank=True)
     teaching_assistant_supervisor = models.ForeignKey(TeachingAssistantSupervisorProfile, null=True, blank=True,
                                                       on_delete=models.SET_NULL)
+    alternate_pno = models.CharField(max_length=10, validators=[contact], blank=True)
+    research_area = models.CharField(max_length=100, blank=True)
+    ug_course = models.CharField(max_length=50, null=True, blank=True)
+    pg_course = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
         return self.roll_no + '(' + self.user.get_full_name() + ')'
 
+    def get_absolute_url(self):
+        return "/details/"
+
 
 def event_pre_save_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug or not instance.rollno:
+    if not instance.slug or not instance.roll_no:
         instance.slug = instance.user.username
-        instance.rollno = instance.user.username
+        instance.roll_no = instance.user.username
 
 
 pre_save.connect(event_pre_save_receiver, sender=TeachingAssistantProfile)

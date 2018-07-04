@@ -8,7 +8,9 @@ from django.contrib.auth.views import LoginView as DefaultLoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from courses.models import Course, Feedback
 from .forms import ApprovalForm
+
 import datetime
+from django.views.generic.edit import UpdateView
 
 
 class UserObjectMixin(object):
@@ -20,10 +22,13 @@ class LoginView(DefaultLoginView):
     template_name = 'frontend/login.html'
 
 
-class ProfileDetailView(LoginRequiredMixin, UserObjectMixin, DetailView):
-    context_object_name = 'profile'
+class ProfileDetailView(UpdateView, LoginRequiredMixin):
     model = TeachingAssistantProfile
+    fields = '__all__'
     template_name = 'frontend/details.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(TeachingAssistantProfile, user=self.request.user)
 
 
 class CourseDetailView(UserObjectMixin, DetailView):
@@ -58,7 +63,7 @@ class ApprovalRequestView(UserObjectMixin, CreateView):
 class CourseApprovalDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['profile'] = TeachingAssistantProfile.objects.get(user=self.request.user)
+        context['form'] = TeachingAssistantProfile.objects.get(user=self.request.user)
         context['no_feedback_courses'] = self.get_excluded_courses()
         context['form'] = ApprovalForm()
         context['time_now'] = datetime.datetime.now()

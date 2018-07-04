@@ -38,8 +38,11 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
+
 <hr>
 <div id="mySidenav" class="sidenav" style="background: #222A31  ;border: black; ">
     <ul class="navbar-nav mr-auto">
@@ -67,7 +70,14 @@
                style="color: white;font-size: 1rem; padding-bottom: 1rem;text-align: left">Time Table
                 <i class="fa fa-angle-right arrow_right"></i>&nbsp</a>
         </li>
-        <div class="sidenavtitle sidenavborder">PROFILE</div>
+
+
+
+        </ul>
+     <ul class="navbar-nav mr-auto" >
+            <div class="sidenavtitle sidenavborder">PROFILE</div>
+
+
         <li class="nav-item  sidenavborder {% block detail %} {% endblock %}">
             <a class="nav-item " href="{% url 'frontend:detail' %}"
                style="color: white;font-size: 1rem; padding-bottom: 1rem;text-align: left">Update Details &nbsp;
@@ -78,11 +88,17 @@
                style="color: white;font-size: 1rem; padding-bottom: 1rem;text-align: left">Change Password &nbsp;
                 <i class="fa fa-angle-right arrow_right"></i> &nbsp</a>
         </li>
+
         <button type="button" class="btn btn-primary " style="margin: 2rem"
                 onclick="location.href='{% url 'frontend:logout' %}'">Logout
         </button>
 
-    </ul>
+
+
+
+  </ul>
+
+
 
 </div>
 <!--/Side Nav-->
