@@ -25,16 +25,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="md-form form-lg">
-                                    <input type="text" name="program" class="form-control form-control-lg"
-{% if form.program.value == "1" %}
-    value="M.Tech"
-{% elif form.program.value == "2" %}
-    value="P.hd"
-{% endif %}
+                                <input type="text" name="program" class="form-control form-control-lg"
+                                       {% if form.program.value== "1" %}
+                                value="M.Tech"
+                                {% elif form.program.value == "2" %}
+                                value="P.hd"
+                                {% endif %}
 
 
-                                           maxlength="8" readonly/>
-                                
+                                maxlength="8" readonly/>
+
                                 <label class="active">Program:</label>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-6">
                             <div class="md-form form-lg">
                                 <div style="padding-top: 0.5rem">
-                                   <!-- <input  type="text" value="{{profile.user.email.value}}" class="form-control form-control-lg" />-->
+                                    <!-- <input  type="text" value="{{profile.user.email.value}}" class="form-control form-control-lg" />-->
                                 </div>
                                 <label class="active">Email Address:</label>
                             </div>
@@ -82,7 +82,7 @@
                         <div class="col-md-6">
                             <div class="md-form form-lg">
                                 <textarea type="" name="research_area" class="form-control form-control-lg"
-                                           maxlength="100" id="id_research_area">{{form.research_area.value}}</textarea>
+                                          maxlength="100" id="id_research_area">{{form.research_area.value}}</textarea>
                                 <label for="id_research_area" class="active">Research area:</label>
                             </div>
                         </div>
