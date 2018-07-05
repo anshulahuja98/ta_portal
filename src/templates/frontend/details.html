@@ -1,107 +1,95 @@
 {% extends 'frontend/sidenavbase.html' %}
 {% block detail %}  default-color {% endblock %}
 {% block body %}
-<br><br>
-<form method="post">
-    {% csrf_token %}
-
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card"
-                     style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem; background-color: #313A42">
-                    <center><h3 class="center" style="color: white; font-weight: 400"> Personal Details</h3>
-                    </center>
-                </div>
-                <div class="card-block" style="margin: 3rem;margin-top: 1rem">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="roll_no" class="form-control form-control-lg"
-                                       value="{{form.roll_no.value}}" id="id_roll_no" maxlength="8" readonly/>
-                                <label for="id_roll_no" class="active">Roll no:</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="program" class="form-control form-control-lg"
-                                       {% if form.program.value== "1" %}
-                                value="M.Tech"
-                                {% elif form.program.value == "2" %}
-                                value="P.hd"
-                                {% endif %}
-
-
-                                maxlength="8" readonly/>
-
-                                <label class="active">Program:</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="phone" class="form-control form-control-lg"
-                                       value="{{form.phone.value}}" maxlength="10" id="id_phone" required/>
-                                <label for="id_phone" class="active">Phone:</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="ug_course" class="form-control form-control-lg"
-                                       value="{{form.ug_course.value}}" id="id_ugcourse" required readonly/>
-                                <label for="id_ugcourse" class="active">Graduation(B.E./B.Tech)</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="alternate_pno" value="{{form.alternate_pno.value}}"
-                                       maxlength="10" id="id_alternate_pno" class="form-control form-control-lg"/>
-                                <label for="id_alternate_pno" class="active">Alternate Phone no.: </label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <input type="text" name="pg_course" class="form-control form-control-lg"
-                                       value="{{form.pg_course.value}}" id="id_pgcourse" required/>
-                                <label for="id_pgcourse" class="active">Post graduation(M.S./M.Tech/M.E.)</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <div style="padding-top: 0.5rem">
-                                    <!-- <input  type="text" value="{{profile.user.email.value}}" class="form-control form-control-lg" />-->
-                                </div>
-                                <label class="active">Email Address:</label>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="md-form form-lg">
-                                <textarea type="" name="research_area" class="form-control form-control-lg"
-                                          maxlength="100" id="id_research_area">{{form.research_area.value}}</textarea>
-                                <label for="id_research_area" class="active">Research area:</label>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </div>
+    <br><br>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
             <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card"
+                         style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem; background-color: #313A42">
+                        <center><h3 class="center" style="color: white; font-weight: 400"> Personal Details</h3>
+                        </center>
+                    </div>
+                    <div class="card-block" style="margin: 3rem;margin-top: 1rem">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="roll_no" class="form-control form-control-lg"
+                                           value="{{ form.roll_no.value }}" id="id_roll_no" maxlength="8" readonly/>
+                                    <label for="id_roll_no" class="active">Roll no:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="program" class="form-control form-control-lg"
+                                            {% if form.program.value == "1" %}
+                                           value="M.Tech"
+                                            {% elif form.program.value == "2" %}
+                                           value="P.hd"
+                                            {% endif %}
+
+
+                                           maxlength="8" readonly/>
+
+                                    <label class="active">Program:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="phone" class="form-control form-control-lg"
+                                           value="{{ form.phone.value }}" maxlength="10" id="id_phone" required/>
+                                    <label for="id_phone" class="active">Phone:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="ug_course" class="form-control form-control-lg"
+                                           value="{{ form.ug_course.value }}" id="id_ugcourse" required readonly/>
+                                    <label for="id_ugcourse" class="active">Graduation(B.E./B.Tech)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="alternate_pno" value="{{ form.alternate_pno.value }}"
+                                           maxlength="10" id="id_alternate_pno" class="form-control form-control-lg"/>
+                                    <label for="id_alternate_pno" class="active">Alternate Phone no.: </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <input type="text" name="pg_course" class="form-control form-control-lg"
+                                           value="{{ form.pg_course.value }}" id="id_pgcourse" required/>
+                                    <label for="id_pgcourse" class="active">Post graduation(M.S./M.Tech/M.E.)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                    <div style="padding-top: 0.5rem">
+                                        <!-- <input  type="text" value="{{profile.user.email.value}}" class="form-control form-control-lg" />-->
+                                    </div>
+                                    <label class="active">Email Address:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form form-lg">
+                                <textarea type="" name="research_area" class="form-control form-control-lg"
+                                          maxlength="100"
+                                          id="id_research_area">{{ form.research_area.value }}</textarea>
+                                    <label for="id_research_area" class="active">Research area:</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
         </div>
-
-
-    </div>
-    <br>
-    <div style="text-align: center">
-        <button type="submit" class="btn btn-primary ">Update</button>
-    </div>
-
-
-</form>
+        <br>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary ">Update</button>
+        </div>
+    </form>
 {% endblock %}
