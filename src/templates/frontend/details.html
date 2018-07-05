@@ -25,10 +25,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="md-form form-lg">
-                                <div style="margin-left: 5.5rem;padding-top: 0.5rem">
-                                    <input type="text" name="program" class="form-control form-control-lg" value="{{form.program.value}}" maxlength="8" readonly/>
-                                </div>
-                                <label>Program:</label>
+                                    <input type="text" name="program" class="form-control form-control-lg"
+{% if form.program.value == "1" %}
+    value="M.Tech"
+{% elif form.program.value == "2" %}
+    value="P.hd"
+{% endif %}
+
+
+                                           maxlength="8" readonly/>
+                                
+                                <label class="active">Program:</label>
                             </div>
                         </div>
 
