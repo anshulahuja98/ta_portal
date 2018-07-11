@@ -28,10 +28,8 @@
                                             {% if form.program.value == "1" %}
                                            value="M.Tech"
                                             {% elif form.program.value == "2" %}
-                                           value="P.hd"
+                                           value="Phd"
                                             {% endif %}
-
-
                                            maxlength="8" readonly/>
 
                                     <label class="active">Program:</label>
@@ -47,7 +45,7 @@
                             <div class="col-md-6">
                                 <div class="md-form form-lg">
                                     <input type="text" name="ug_course" class="form-control form-control-lg"
-                                           value="{{ form.ug_course.value }}" id="id_ugcourse" required readonly/>
+                                           value="{{ form.ug_course.value }}" id="id_ugcourse" required/>
                                     <label for="id_ugcourse" class="active">Graduation(B.E./B.Tech)</label>
                                 </div>
                             </div>
@@ -68,7 +66,8 @@
                             <div class="col-md-6">
                                 <div class="md-form form-lg">
                                     <div style="padding-top: 0.5rem">
-                                        <!-- <input  type="text" value="{{profile.user.email.value}}" class="form-control form-control-lg" />-->
+                                        <input type="text" value="{{ teachingassistantprofile.user.email }}"
+                                               class="form-control form-control-lg" readonly/>
                                     </div>
                                     <label class="active">Email Address:</label>
                                 </div>
@@ -82,14 +81,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="text-align: center">
+                            <button type="submit" class="btn " style="background: #4381B8">Update</button>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-md-1"></div>
             </div>
         </div>
         <br>
-        <div style="text-align: center">
-            <button type="submit" class="btn btn-primary ">Update</button>
-        </div>
+
     </form>
 {% endblock %}

@@ -24,7 +24,7 @@ class LoginView(DefaultLoginView):
 
 class ProfileDetailView(UpdateView, LoginRequiredMixin):
     model = TeachingAssistantProfile
-    fields = ['roll_no', 'phone', 'alternate_pno', 'research_area', 'ug_course', 'pg_course']
+    fields = ['roll_no', 'program', 'phone', 'alternate_pno', 'research_area', 'ug_course', 'pg_course']
     template_name = 'frontend/details.html'
 
     def get_object(self, queryset=None):

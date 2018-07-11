@@ -8,4 +8,4 @@ class CourseAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ('slug',)

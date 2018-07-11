@@ -22,9 +22,9 @@
             <tbody>
             {% for feedback in profile.feedback_set.current %}
                 <tr>
-                    <th scope="row">
+                    <td scope="row">
                         {{ feedback.course.course_code }}
-                    </th>
+                    </td>
                     <td>{{ feedback.course.course_name }}</td>
                     <td>
                         {{ feedback.teaching_assistant_supervisor }}
@@ -63,8 +63,6 @@
             {% endfor %}
 
             {% for course in no_feedback_courses %}
-
-
                 <form method="post">
                     {% csrf_token %}
                     {{ form.errors }}
@@ -72,9 +70,9 @@
                         <select name="course" required id="id_course" hidden>
                             <option value="{% index course.course_code %}" selected>{{ course.course_code }}</option>
                         </select>
-                        <th scope="row">
+                        <td scope="row">
                             {{ course.course_code }}
-                        </th>
+                        </td>
                         <td>{{ course.course_name }}</td>
                         <td>
                             {{ profile.teaching_assistant_supervisor }}
@@ -106,7 +104,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <button class="btn btn-primary" type="submit">Send Request for Approval</button>
+                            <button class="btn" type="submit" style="background: #4381B8">Send Request for Approval</button>
                         </td>
                         <td></td>
                     </tr>

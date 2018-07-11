@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card"
                      style="height: 3rem;padding-top: 0.5rem;  margin-left: -1rem;  margin-right: -1rem;  margin-top: -1px;  margin-bottom: 1rem;">
-                    <center><h3 class="center" style="color: #4285F4; font-weight: 400"> Teaching Assistant Login</h3>
+                    <center><h3 class="center" style="color: #4381B8; font-weight: 400"> Teaching Assistant Login</h3>
                     </center>
                 </div>
                 <div class="card-block" style="margin: 3rem;margin-top: 1rem">
@@ -18,12 +18,12 @@
                         <!--Header-->
                         {% csrf_token %}
                         <div class="md-form">
-                            <i class="fa fa-envelope prefix" style="color: #4285F4  "></i>
+                            <i class="fa fa-envelope prefix" style="color: #4381B8  "></i>
                             <input type="text" name="username" id="username" class="form-control">
                             <label for="username">Username</label>
                         </div>
                         <div class="md-form">
-                            <i class="fa fa-lock prefix" style="font-size: 2.5rem; color: #4285F4   "></i>
+                            <i class="fa fa-lock prefix" style="font-size: 2.5rem; color: #4381B8   "></i>
                             <input type="password" name="password" id="password" class="form-control">
                             <label for="password">Password</label>
                         </div>
@@ -33,11 +33,11 @@
                             </div>
                         {% endfor %}
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit">Login</button>
+                            <button class="btn " type="submit" style="background: #4381B8;">Login</button>
                         </div>
                     </form>
                     <div style="text-align: right">
-                        <a href="{% url 'password_reset' %}">
+                        <a href="{% url 'password_reset' %}" style="color: 4381B8">
                         Forgot Password?
                         </a>
                     </div>
