@@ -30,7 +30,7 @@
                         {{ feedback.teaching_assistant_supervisor }}
                     </td>
                     <td>
-                        {% if feedback.is_approve %}
+                        {% if feedback.is_approved %}
                             <div style="color: limegreen;"
                                  onclick="toggleDuties('{{ feedback.course.course_code }}')">TA Release request
                                 approved for {{ feedback.requested_on|date:"F" }} (Click to see duties and comments)
@@ -53,9 +53,11 @@
                         <p>{{ feedback.duties_description }}    </p>
                     </td>
                 </tr>
-                {% if feedback.is_approve %}
+                {% if feedback.is_approved %}
                     <tr class="{{ feedback.course.course_code }}" style="display: none">
                         <td colspan="5">
+                                 <b style="font-size: 1.1rem"> Comments
+                            &nbsp;</b>
                             <p>{{ feedback.comments }}</p>
                         </td>
                     </tr>
