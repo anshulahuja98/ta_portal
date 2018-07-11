@@ -51,10 +51,14 @@ class ApprovalRequestView(UserObjectMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         self.request.POST._mutable = True
+        teaching_assistant_profile = TeachingAssistantProfile.objects.get(user=self.request.user)
+        try:
+            teaching_assistant_supervisor_id = teaching_assistant_profile.teaching_assistant_supervisor.id
+        except AttributeError:
+            teaching_assistant_supervisor_id = None
         self.request.POST.update({
-            'teaching_assistant': TeachingAssistantProfile.objects.get(user=self.request.user).id,
-            'teaching_assistant_supervisor': TeachingAssistantProfile.objects.get(
-                user=self.request.user).teaching_assistant_supervisor.id
+            'teaching_assistant': teaching_assistant_profile.id,
+            'teaching_assistant_supervisor': teaching_assistant_supervisor_id
         })
         self.request.POST._mutable = False
         return super().post(request, args, kwargs)
