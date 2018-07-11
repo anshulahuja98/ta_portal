@@ -51,7 +51,8 @@ class Feedback(models.Model):
     objects = FeedbackManager()
 
     def __str__(self):
-        return  self.course.course_code + ' ' + self.requested_on.strftime('%B') + ' ' + self.teaching_assistant.user.username
+        return self.course.course_code + ' ' + self.requested_on.strftime(
+            '%B') + ' ' + self.teaching_assistant.user.username
 
     @property
     def get_roll_no(self):
