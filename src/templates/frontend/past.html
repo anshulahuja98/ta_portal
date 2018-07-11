@@ -10,7 +10,7 @@
                 <br>
                 <br>
                 <table class="table table-striped" >
-                    <thead class=" lighten-4" style="background: #D9EDFF;border-radius: 1px;">
+                    <thead class=" lighten-4" style="background: #D9EDFF ;border-radius: 1px;">
                     <tr>
                         <th class="theader">Month</th>
                         <th class="theader">Course Code</th>
@@ -23,7 +23,7 @@
                     <tbody>
                     {% for feedback in feedbacks %}
                         <tr>
-                            <td>{{ feedback.get_month_display }}</td>
+                            <td>{{ feedback.requested_on|date:"F" }} {{ feedback.requested_on|date:"Y" }}</td>
                             <td>{{ feedback.course.course_code }}</td>
                             <td>{{ feedback.course.course_name }}</td>
                             <td>{{ feedback.teaching_assistant_supervisor }}</td>
