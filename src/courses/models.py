@@ -5,6 +5,7 @@ from accounts.models import TeachingAssistantProfile
 from adminportal.models import FacultyProfile, TeachingAssistantSupervisorProfile
 from django.urls import reverse
 from django.db.models.signals import pre_save
+import datetime
 
 
 class Course(models.Model):
@@ -35,6 +36,10 @@ pre_save.connect(event_pre_save_receiver, sender=Course)
 class FeedbackManager(models.Manager):
     def current(self):
         return self.filter(requested_on__month=timezone.now().month)
+
+    def approved_current(self):
+        return self.filter(requested_on__month=datetime.datetime.now().month, modified_on__isnull=False,
+                           comments__isnull=False, changes_requested=False)
 
 
 class Feedback(models.Model):

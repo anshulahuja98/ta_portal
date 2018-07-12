@@ -2,20 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="TDF-8">
     <title></title>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Hind');
+</style>
 <body style="font-size: 15px">
 <div class="container">
     <div>
         <div align="left" style="height: 2rem;width: 2rem">
             <img src="http://127.0.0.1:8000/static/img/red_logo.png" style="height: 100px;width: 100px    ">
-            {#            <img src="http://127.0.0.1:8000/static/img/red_logo.png" alt="">#}
-        </div>
-        <div align="right" style="font-size: 22px;;">
-            भारतीय प्रौद्योगिकी संस्थान जोधपुर
             <br>
-            Indian Institute of Technology Jodhpur
+            <img align="right" src="http://127.0.0.1:8000/static/img/hindi_iitj.png" style="margin-bottom: -10px">
+            <br>
+            <h1 align="right" style="margin-right: 5px"> Indian Institute of Technology Jodhpur</h1>
         </div>
     </div>
     <br>
@@ -23,9 +24,9 @@
     <div class="container-fluid">
         <b style="font-size: larger">
             To <br>
-            Assistant Regisstrar (Students)
+            Assistant Registrar (Students)
         </b>
-        <p> This is to certify that the following {{ program }} students in the Department of {{ department }} have
+        <p> This is to certify that the following students in the Department of {{ department }} have
             worked
             for
             at least 8 hours per week during the month of {{ month }} {{ year }}.
@@ -39,11 +40,11 @@
                 <th>Roll No.</th>
                 <th>Name</th>
             </tr>
-            {% for student in students %}
+            {% for feedback in feedbacks %}
                 <tr style="padding: 2px">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ student.user.username }}</td>
-                    <td>{{ student.user.get_full_name }}</td>
+                    <td>{{ feedback.teaching_assistant.user.username }}</td>
+                    <td>{{ feedback.teaching_assistant.user.get_full_name }}</td>
                 </tr>
             {% endfor %}
 
