@@ -9,7 +9,7 @@
                 <h5 style="font-weight: 400">TA Assignment for Semester I, AY 2018-2019</h5>
                 <br>
                 <br>
-                <table class="table table-striped" >
+                <table class="table table-striped">
                     <thead class=" lighten-4" style="background: #D9EDFF ;border-radius: 1px;">
                     <tr>
                         <th class="theader">Month</th>
@@ -18,6 +18,8 @@
                         <th class="theader">TA Supervisor</th>
                         <th class="theader">Status</th>
                         <th class="theader">Comments</th>
+                        <th class="theader">Duties</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -28,13 +30,14 @@
                             <td>{{ feedback.course.course_name }}</td>
                             <td>{{ feedback.teaching_assistant_supervisor }}</td>
                             <td>
-                                {% if feedback.approve %}
-                                    Approved
+                                {% if feedback.is_approved %}
+                                    <span class="green-text">Approved</span>
                                 {% else %}
-                                    Not Approved
+                                    <span class="red-text">Not Approved</span>
                                 {% endif %}
                             </td>
                             <td>{{ feedback.comments }}</td>
+                            <td>{{ feedback.duties_description }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
