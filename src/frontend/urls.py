@@ -4,7 +4,6 @@ from django.views.generic import RedirectView
 from .views import ProfileDetailView, LoginView, CourseFeedbackView, CourseDetailView
 from adminportal.views import Pdf
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
-from django.shortcuts import reverse
 
 app_name = 'frontend'
 
@@ -16,9 +15,10 @@ urlpatterns = [
     path('past/', CourseDetailView.as_view(), name='past'),
     path('current/', CourseFeedbackView.as_view(), name='current'),
     path('pdf/', Pdf.as_view(), name='pdf'),
-    path('password-change/', PasswordChangeView.as_view(success_url='/password-change/done',
-                                                        template_name='frontend/password_reset_form.html'),
+    path('details/password-change/', PasswordChangeView.as_view(success_url='/details/password-change/done',
+                                                                template_name='frontend/password_reset_form.html'),
          name='password_change'),
-    path('password-change/done/', PasswordChangeDoneView.as_view(template_name='frontend/password_reset_done.html'),
+    path('details/password-change/done/',
+         PasswordChangeDoneView.as_view(template_name='frontend/password_reset_done.html'),
          name='password_change_done')
 ]
