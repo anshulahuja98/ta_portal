@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from .views import ProfileDetailView, LoginView, CourseFeedbackView, CourseDetailView
 from adminportal.views import Pdf
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
@@ -14,6 +14,7 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='frontend:detail')),
     path('past/', CourseDetailView.as_view(), name='past'),
     path('current/', CourseFeedbackView.as_view(), name='current'),
+    path('timetable/', TemplateView.as_view(template_name='frontend/timetable.html'), name='timetable'),
     path('pdf/', Pdf.as_view(), name='pdf'),
     path('details/password-change/', PasswordChangeView.as_view(success_url='/details/password-change/done',
                                                                 template_name='frontend/password_reset_form.html'),
