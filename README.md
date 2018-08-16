@@ -1,8 +1,6 @@
 # TA Portal ![Status active](https://img.shields.io/badge/Status-active%20development-2eb3c1.svg) ![Django 2.0.5](https://img.shields.io/badge/Django-2.0.5-green.svg) ![Python 3.6](https://img.shields.io/badge/Python-3.6-blue.svg)
 [![Build Status](https://travis-ci.org/devlup-labs/ta_portal.svg?branch=master)](https://travis-ci.org/devlup-labs/ta_portal)
 ## A platform for automating the task of generating reports of work done by Teaching Assistants
-### Purpose
-[GOES HERE]
 
 ### Installation:
 Requirements:
